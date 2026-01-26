@@ -30,7 +30,7 @@
     </script>
 
     <style>
-        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; overscroll-behavior-y: none; padding-top: env(safe-area-inset-top); }
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; overscroll-behavior-y: auto; padding-top: env(safe-area-inset-top); }
         .safe-header { padding-top: calc(1rem + env(safe-area-inset-top, 0px)); padding-bottom: 1rem; }
         #loading-overlay { background: #0f172a; position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s; }
         .sortable-ghost { opacity: 0.4; background: #334155; }
@@ -46,13 +46,13 @@
         </div>
     </div>
 
-    <div id="app" class="w-full max-w-md h-[100dvh] bg-dark-900 shadow-2xl relative flex flex-col">
+    <div id="app" class="w-full max-w-md bg-dark-900 shadow-2xl relative flex flex-col">
         <header class="safe-header px-4 bg-dark-800/90 backdrop-blur-md z-20 border-b border-gray-700/50 flex justify-between items-center shrink-0">
             <h1 id="header-title" class="text-xl font-bold bg-gradient-to-r from-emerald-400 to-cyan-500 bg-clip-text text-transparent">SuperLijst</h1>
             <div id="header-actions" class="flex gap-3"></div>
         </header>
 
-        <main id="main-content" class="flex-grow p-4 overflow-y-auto"></main>
+        <main id="main-content" class="flex-grow p-4 overflow-auto"></main>
         <div id="notification-container" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 w-11/12 max-w-sm z-50 flex flex-col gap-2 pointer-events-none"></div>
         <div id="fixed-action-bar" class="fixed inset-x-0 bottom-0 z-30"></div> 
     </div>
@@ -356,6 +356,7 @@
                 
                 new Sortable(ul, {
                     animation: 150,
+                    disabled: true,
                     onEnd: (evt) => {
                         const items = [...app.currentList.items];
                         const [moved] = items.splice(evt.oldIndex, 1);
